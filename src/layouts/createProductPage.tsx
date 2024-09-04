@@ -68,7 +68,9 @@ export default function CreateProductPage() {
             }));
         }
         const value =
-            event.target.type === "text" || event.target.type === "textarea"
+            event.target.type === "text" ||
+            event.target.type === "textarea" ||
+            event.target.value === ""
                 ? event.target.value
                 : +event.target.value;
         setNewProduct((prevState) => ({
@@ -78,9 +80,10 @@ export default function CreateProductPage() {
     }
 
     function handleChangeRating(event: React.ChangeEvent<HTMLInputElement>) {
+        const value = event.target.value === "" ? null : +event.target.value;
         const tempRating = {
             ...newRating,
-            [event.target.name]: +event.target.value,
+            [event.target.name]: value,
         };
         setNewRating(tempRating);
         setNewProduct((prevState) => ({
@@ -180,7 +183,7 @@ export default function CreateProductPage() {
                         <button
                             className="w-100 mx-auto btn btn-primary"
                             type="submit"
-                            disabled={false}
+                            disabled={errors.length!==0}
                         >
                             Отправить
                         </button>
