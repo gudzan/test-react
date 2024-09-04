@@ -45,7 +45,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                     <div className="product-img col-md-4 d-flex justify-content-center align-items-center">
                         <img
                             src={product.image}
-                            className="productCard__img img-fluid rounded-start"
+                            className="productCard__img img-fluid"
                         />
                     </div>
                     <div className="product-body col-md-8 d-flex justify-content-center">

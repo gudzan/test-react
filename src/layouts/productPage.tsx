@@ -11,7 +11,10 @@ interface RouteParams {
 
 export default function ProductPage(props: RouteComponentProps<RouteParams>) {
     const productId = props.match.params.productId;
-    const { data, isLoading } = useGetQuery(productId);
+    const { data, isLoading } = useGetQuery(productId, {
+        pollingInterval: 30000,
+        skipPollingIfUnfocused: true,
+    });
     const product: Product = data;
     const history = useHistory();
 
@@ -51,7 +54,7 @@ export default function ProductPage(props: RouteComponentProps<RouteParams>) {
                         <div className="col-md-4 d-flex justify-content-center">
                             <img
                                 src={product.image}
-                                className="img-fluid rounded-start"
+                                className="img-fluid"
                             />
                         </div>
                         <div className="col-md-8">

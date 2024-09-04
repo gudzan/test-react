@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { usePutProductsMutation } from "../redux/productsApi";
+import { useCreateProductMutation } from "../redux/productsApi";
 import products from "../mockData/products.json"
 
 const useMockData = () => {
@@ -9,7 +9,7 @@ const useMockData = () => {
       successed: "Готово",
       error: "Ошибка!"
   };
-  const [putProducts] = usePutProductsMutation()
+  const [createProducts] = useCreateProductMutation()
   const [error, setError] = useState(null);
   const [status, setStatus] = useState(statusConsts.idle);
   const [progress, setProgress] = useState(0);
@@ -39,7 +39,7 @@ const useMockData = () => {
       try {
 
           for (const p of products) {
-            putProducts({...p});
+            createProducts({...p});
             incrementCount();
         }
       } catch (error : any) {

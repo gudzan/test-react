@@ -1,13 +1,18 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
+import { useHistory } from "react-router-dom";
 import TextField from "../component/form/textField";
 import { Product, Rating } from "../type/Product";
 import TextAreaField from "../component/form/textAreaField";
 import { v4 as uuidv4 } from "uuid";
 import { validate } from "../utils/validator";
-import { errorConfig, ErrorMessage } from "../utils/errorConfig";
+import { ErrorMessage } from "../utils/errorConfig";
+import { useCreateProductMutation } from "../redux/productsApi";
 
 export default function CreateProductPage() {
+    const [createProduct] = useCreateProductMutation();
+    const history = useHistory();
     const [errors, setErrors] = useState<ErrorMessage[]>([]);
+    const [checking, setChecking] = useState(false);
 
     const [newRating, setNewRating] = useState<Rating>({
         rate: null,
@@ -24,11 +29,15 @@ export default function CreateProductPage() {
         description: "",
         like: false,
     });
-    console.log(newProduct);
-    
+
+    function backToProductList() {
+        history.push("/");
+    }
 
     useEffect(() => {
-        validateFields();
+        if (checking === true) {
+            validateFields();
+        }
     }, [newProduct]);
 
     function validateFields() {
@@ -36,26 +45,32 @@ export default function CreateProductPage() {
         const errorRating = validate(newRating);
         const common = errorProduct.concat(errorRating);
         setErrors(common);
-        return errors.length === 0;
+        return errors.length === 0 && checking === true ? true : false;
     }
 
     function handleSubmit(event: React.SyntheticEvent<HTMLFormElement>) {
         event.preventDefault();
+        setChecking(true);
         if (!validateFields()) return;
-        const newId = uuidv4();
-        setNewProduct((prevState) => ({
-            ...prevState,
-            id: newId,
-        }));
         console.log(newProduct);
+        createProduct({ ...newProduct });
+        backToProductList();
     }
 
     function handleChangeProduct(
-        event:
-            | ChangeEvent<HTMLInputElement>
-            | ChangeEvent<HTMLTextAreaElement>
+        event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
     ) {
-        const value = event.target.type === "text" ? event.target.value :  +event.target.value
+        if (!newProduct.id) {
+            const newId = uuidv4();
+            setNewProduct((prevState) => ({
+                ...prevState,
+                id: newId,
+            }));
+        }
+        const value =
+            event.target.type === "text" || event.target.type === "textarea"
+                ? event.target.value
+                : +event.target.value;
         setNewProduct((prevState) => ({
             ...prevState,
             [event.target.name]: value,
@@ -81,6 +96,13 @@ export default function CreateProductPage() {
 
     return (
         <div className="container mt-5">
+            <button
+                className="btn btn-outline-secondary mb-3 col-md-8 offset-md-2 "
+                onClick={backToProductList}
+                style={{ maxWidth: "90px" }}
+            >
+                <i className="bi bi-arrow-left"></i> Назад
+            </button>
             <div className="row">
                 <div className="col-md-8 offset-md-2 shadow p-5">
                     <h1 className="mb-4">Создание нового товара</h1>
@@ -149,6 +171,7 @@ export default function CreateProductPage() {
                             <TextAreaField
                                 label="Описание"
                                 name="description"
+                                type="text"
                                 value={newProduct.description}
                                 onChange={handleChangeProduct}
                                 error={getErrorForField("description")}

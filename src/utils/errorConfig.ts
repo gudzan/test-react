@@ -132,6 +132,11 @@ export const errorConfig: ErrorConfig[] = [
                 message: "Поле обязательно для заполнения",
             },
             {
+                methodName: "minLength",
+                value: 120,
+                message: "Поле не может содержать меньше чем 120 символов",
+            },
+            {
                 methodName: "maxLength",
                 value: 800,
                 message: "Поле не может содержать более чем 800 символов",

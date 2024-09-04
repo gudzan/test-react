@@ -22,6 +22,12 @@ export function validate(data: any) {
                 }
                 break;
             }
+            case "minLength": {
+                if (method.value && data !== null) {
+                    statusCompare = data.length < method.value;
+                }
+                break;
+            }
             case "maxValues": {
                 if (method.value && data !== null) {
                     statusCompare = data > method.value;

@@ -4,6 +4,7 @@ type TextAreaFieldProps = {
     label: string;
     name: string;
     value: any | null;
+    type: string;
     error?: string;
     onChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
 };
@@ -12,6 +13,7 @@ export default function TextAreaField({
     label,
     name,
     value,
+    type,
     error,
     onChange,
     ...rest
@@ -35,7 +37,7 @@ export default function TextAreaField({
                     value={value !== null ? value : ""}
                     {...rest}
                 />
-                 {error && <div className="invalid-feedback">{error}</div>}
+                {error && <div className="invalid-feedback">{error}</div>}
             </div>
         </div>
     );
