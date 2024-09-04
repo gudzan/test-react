@@ -1,7 +1,7 @@
 export interface Product {
   id: string;
   title: string;
-  price: number;
+  price: number | null;
   description: string;
   category: string;
   image: string;
@@ -9,7 +9,7 @@ export interface Product {
   like: boolean;
 }
 
-interface Rating {
-  rate: number;
-  count: number;
+export interface Rating {
+  rate: number | null;
+  count: number | null;
 }

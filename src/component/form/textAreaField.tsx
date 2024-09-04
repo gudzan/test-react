@@ -1,24 +1,21 @@
 import React, { ChangeEvent } from "react";
 
-type TextFieldProps = {
+type TextAreaFieldProps = {
     label: string;
     name: string;
     value: any | null;
-    type: string;
-    error?: string
-    onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+    error?: string;
+    onChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
 };
 
-export default function TextField({
+export default function TextAreaField({
     label,
     name,
     value,
-    type,
     error,
     onChange,
     ...rest
-}: TextFieldProps) {
-
+}: TextAreaFieldProps) {
     function getInputClassName() {
         let inputClassName = "form-control";
         if (error) {
@@ -30,16 +27,15 @@ export default function TextField({
         <div className="mb-4">
             <label htmlFor={name}>{label}</label>
             <div className="has-validation input-group">
-                <input
+                <textarea
                     className={getInputClassName()}
-                    type={type ? type : "text"}
                     id={name}
                     name={name}
                     onChange={onChange}
                     value={value !== null ? value : ""}
                     {...rest}
                 />
-                {error && <div className="invalid-feedback">{error}</div>}
+                 {error && <div className="invalid-feedback">{error}</div>}
             </div>
         </div>
     );

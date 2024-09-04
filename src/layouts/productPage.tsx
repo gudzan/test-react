@@ -68,7 +68,7 @@ export default function ProductPage(props: RouteComponentProps<RouteParams>) {
                                     <b>Цена:</b> {product.price} $
                                 </div>
                                 <div className="card-text">
-                                    <b>Рейтинг:</b> {product.rating.rate}
+                                    <b>Рейтинг:</b> {product.rating.rate} / 5
                                 </div>
                             </div>
                         </div>
