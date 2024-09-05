@@ -20,16 +20,12 @@ export default function ProductCard({ product }: ProductCardProps) {
     const [deleteProduct] = useDeleteProductByIdMutation();
     const [updateProduct] = useUpdateProductByIdMutation();
 
-    function handleClickLike(
-        event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-    ) {
+    function handleClickLike(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         event.preventDefault();
         updateProduct({ id: product.id, like: !product.like });
     }
 
-    function handleClickRemove(
-        event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-    ) {
+    function handleClickRemove(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         event.preventDefault();
         deleteProduct(product.id);
     }

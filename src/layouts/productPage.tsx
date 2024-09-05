@@ -52,10 +52,7 @@ export default function ProductPage(props: RouteComponentProps<RouteParams>) {
                 <div className="card p-3 productPage-card">
                     <div className="row ">
                         <div className="col-md-4 d-flex justify-content-center">
-                            <img
-                                src={product.image}
-                                className="img-fluid"
-                            />
+                            <img src={product.image} className="img-fluid" />
                         </div>
                         <div className="col-md-8">
                             <div className="card-body">

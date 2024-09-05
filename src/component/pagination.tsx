@@ -19,7 +19,7 @@ export default function Pagination({
     onNextPage,
 }: PaginationProps) {
     const pagesCount = Math.ceil(itemsCount / pageSize);
-    const pages:number[] = _.range(1, pagesCount + 1);
+    const pages: number[] = _.range(1, pagesCount + 1);
 
     const getClassForActiveItem = (page: number) => {
         return currentPage === page ? " active" : "";

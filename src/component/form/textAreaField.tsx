@@ -16,7 +16,6 @@ export default function TextAreaField({
     type,
     error,
     onChange,
-    ...rest
 }: TextAreaFieldProps) {
     function getInputClassName() {
         let inputClassName = "form-control";
@@ -25,6 +24,7 @@ export default function TextAreaField({
         }
         return inputClassName;
     }
+
     return (
         <div className="mb-4">
             <label htmlFor={name}>{label}</label>
@@ -35,7 +35,6 @@ export default function TextAreaField({
                     name={name}
                     onChange={onChange}
                     value={value !== null ? value : ""}
-                    {...rest}
                 />
                 {error && <div className="invalid-feedback">{error}</div>}
             </div>

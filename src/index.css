@@ -1,80 +1,81 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow-y: scroll; 
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+        "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-y: scroll;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+        monospace;
 }
 
-.productCard__img{
-  max-height: 200px;
-  width: auto;
-  max-width: 180px;
+.productCard__img {
+    max-height: 200px;
+    width: auto;
+    max-width: 180px;
 }
-.product-img, .product-body{
-  height: 100%;
+.product-img,
+.product-body {
+    height: 100%;
 }
-.product-card{
-  height: 230px;
+.product-card {
+    height: 230px;
 }
-.description{
-  max-height: 78px;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.product-button-box{
-  bottom: 5px;
-  right: 20px;
+.description {
+    max-height: 78px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
-.card{
-  max-height: 450px;
+.product-button-box {
+    bottom: 5px;
+    right: 20px;
 }
 
-.productPage-card img{
-  max-height: 400px;
+.card {
+    max-height: 450px;
 }
 
-.card-body{
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.productPage-card img {
+    max-height: 400px;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .card-link {
-  color: inherit; 
-  text-decoration: inherit; 
+    color: inherit;
+    text-decoration: inherit;
 }
-.product-border{
-  transition: all 0.3s ease-out;
+.product-border {
+    transition: all 0.3s ease-out;
 }
 .product-border:hover {
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
-input[type="number"]::-webkit-inner-spin-button, 
-input[type="number"]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 input[type="number"] {
-  -moz-appearance: textfield;
+    -moz-appearance: textfield;
 }
-input{
-  max-height: 37.6px;
+input {
+    max-height: 37.6px;
 }
-textarea{
-  max-height: 150px;
+textarea {
+    max-height: 150px;
 }
 .gap {
-  gap: 15px;
+    gap: 15px;
 }

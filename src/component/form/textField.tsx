@@ -16,7 +16,6 @@ export default function TextField({
     type,
     error,
     onChange,
-    ...rest
 }: TextFieldProps) {
 
     function getInputClassName() {
@@ -26,6 +25,7 @@ export default function TextField({
         }
         return inputClassName;
     }
+    
     return (
         <div className="mb-4">
             <label htmlFor={name}>{label}</label>
@@ -37,7 +37,6 @@ export default function TextField({
                     name={name}
                     onChange={onChange}
                     value={value !== null ? value : ""}
-                    {...rest}
                 />
                 {error && <div className="invalid-feedback">{error}</div>}
             </div>

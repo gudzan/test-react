@@ -11,11 +11,13 @@ export const productsApi = createApi({
     endpoints: (builder) => ({
         getAll: builder.query({
             query: () => `.json`,
-            providesTags: (result, error, arg) => [{type: "Products", id: arg}],
+            providesTags: (result, error, arg) => [
+                { type: "Products", id: arg },
+            ],
         }),
         get: builder.query({
             query: (id) => `/${id}.json`,
-            providesTags:  (result, error, id) => [{ type: "Products", id }],
+            providesTags: (result, error, id) => [{ type: "Products", id }],
         }),
         updateProductById: builder.mutation({
             query: ({ id, ...body }) => ({
@@ -26,12 +28,11 @@ export const productsApi = createApi({
             invalidatesTags: ["Products"],
         }),
         createProduct: builder.mutation({
-            query: ({...body }) => ({
+            query: ({ ...body }) => ({
                 url: `/${body.id}.json`,
                 method: "PUT",
                 body,
             }),
-            
             invalidatesTags: ["Products"],
         }),
         deleteProductById: builder.mutation({

@@ -183,7 +183,7 @@ export default function CreateProductPage() {
                         <button
                             className="w-100 mx-auto btn btn-primary"
                             type="submit"
-                            disabled={errors.length!==0}
+                            disabled={errors.length !== 0}
                         >
                             Отправить
                         </button>

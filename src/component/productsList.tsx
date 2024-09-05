@@ -10,8 +10,8 @@ import Pagination from "./pagination";
 
 export default function ProductsList() {
     const history = useHistory();
-    const [currentPage, setCurrentPage] = useState(1);
     const pageSize = 4;
+    const [currentPage, setCurrentPage] = useState(1);
     const [searchData, setSearchData] = useState("");
     const [filter, setFilter] = useState(false);
     const [filterButtonDisabled, setFilterButtonDisabled] = useState(true);
@@ -46,10 +46,9 @@ export default function ProductsList() {
 
     function existFavorites() {
         if (data !== undefined) {
-            return products.findIndex((item: Product) => item.like === true) ===
-                -1
-                ? false
-                : true;
+            return (
+                products.findIndex((item: Product) => item.like === true) !== -1
+            );
         }
     }
 
@@ -59,13 +58,8 @@ export default function ProductsList() {
 
     useEffect(() => {
         if (data !== undefined) {
-            const dataValues: Product[] =
-                data !== null ? Object.values(data) : [];
-            if (filter === true) {
-                setProducts(dataValues.filter((elem) => elem.like === true));
-            } else {
-                setProducts(dataValues);
-            }
+            const dataValues: Product[] = data !== null ? Object.values(data) : [];
+            setProducts(dataValues);
         }
     }, [data]);
 
@@ -78,49 +72,32 @@ export default function ProductsList() {
         }
     }, [products]);
 
-    useEffect(() => {
-        if (filter === true) {
-            setProducts(products.filter((elem) => elem.like === true));
-        } else {
-            setProducts(data ? Object.values(data) : []);
-        }
-        if (products.length !== 0) {
-            setFilterButtonDisabled(false);
-        } else {
-            setFilterButtonDisabled(true);
-        }
-    }, [filter]);
-
     function handleToggleFilter() {
         setCurrentPage(1);
         filter === true ? setFilter(false) : setFilter(true);
     }
-    
 
-    function searchProduct(searchProduct:Product[]) {
+    function searchProduct(searchProduct: Product[]) {
         if (searchData.length > 0) {
-            return searchProduct.filter((p) =>{
-                const common = p.title + p.category + p.description+ p.price                
-                return common.toLowerCase().includes(searchData.toLowerCase())
-            } );
-        }
-        else{
-            return searchProduct
-        }
-    }
-
-    function filterProduct(filterProduct:Product[]) {
-        if (filter===true) {
-            return filterProduct.filter(((elem) => elem.like === true))
-        }
-        else{
-            return filterProduct
+            return searchProduct.filter((p) => {
+                const common = p.title + p.category + p.description + p.price;
+                return common.toLowerCase().includes(searchData.toLowerCase());
+            });
+        } else {
+            return searchProduct;
         }
     }
 
-    const productsSearch: Product[] = searchProduct(products)
-    const productsFilter: Product[] = filterProduct(productsSearch)
+    function filterProduct(filterProduct: Product[]) {
+        if (filter === true) {
+            return filterProduct.filter((elem) => elem.like === true);
+        } else {
+            return filterProduct;
+        }
+    }
 
+    const productsSearch: Product[] = searchProduct(products);
+    const productsFilter: Product[] = filterProduct(productsSearch);
     const productsCount = productsFilter.length;
     const productsFinish = paginate(productsFilter, currentPage, pageSize);
 
