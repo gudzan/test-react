@@ -6,7 +6,7 @@
 
 ## Демо
 
-Посмотреть сайт можно по ссылке → https://gudzan.github.io/
+Посмотреть сайт можно по ссылке → https://gudzan.github.io/test-react/
 
 ## Реализация
 
