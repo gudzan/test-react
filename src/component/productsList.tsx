@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Product } from "../type/Product";
 import ProductCard from "./productCard";
@@ -6,9 +6,13 @@ import Filter from "./filter";
 import Spinner from "./spinner";
 import { useGetAllQuery } from "../redux/productsApi";
 import MockData from "../mockData/mockData";
+import Pagination from "./pagination";
 
 export default function ProductsList() {
     const history = useHistory();
+    const [currentPage, setCurrentPage] = useState(1);
+    const pageSize = 4;
+    const [searchData, setSearchData] = useState("");
     const [filter, setFilter] = useState(false);
     const [filterButtonDisabled, setFilterButtonDisabled] = useState(true);
     const { data, isLoading } = useGetAllQuery("", {
@@ -16,6 +20,29 @@ export default function ProductsList() {
         skipPollingIfUnfocused: true,
     });
     const [products, setProducts] = useState<Product[]>([]);
+
+    function handleSearch(event: ChangeEvent<HTMLInputElement>) {
+        setSearchData(event.target.value);
+    }
+
+    const handleCurrentPage = (pageNumber: number) => {
+        setCurrentPage(pageNumber);
+    };
+
+    const handleNextPage = () => {
+        const nextPage = currentPage + 1;
+        setCurrentPage(nextPage);
+    };
+
+    const handlePreviousPage = () => {
+        const previousPage = currentPage - 1;
+        setCurrentPage(previousPage);
+    };
+
+    function paginate(array: Product[], currentPage: number, pageSize: number) {
+        const startIndex = (currentPage - 1) * pageSize;
+        return [...array].splice(startIndex, pageSize);
+    }
 
     function existFavorites() {
         if (data !== undefined) {
@@ -65,8 +92,37 @@ export default function ProductsList() {
     }, [filter]);
 
     function handleToggleFilter() {
+        setCurrentPage(1);
         filter === true ? setFilter(false) : setFilter(true);
     }
+    
+
+    function searchProduct(searchProduct:Product[]) {
+        if (searchData.length > 0) {
+            return searchProduct.filter((p) =>{
+                const common = p.title + p.category + p.description+ p.price                
+                return common.toLowerCase().includes(searchData.toLowerCase())
+            } );
+        }
+        else{
+            return searchProduct
+        }
+    }
+
+    function filterProduct(filterProduct:Product[]) {
+        if (filter===true) {
+            return filterProduct.filter(((elem) => elem.like === true))
+        }
+        else{
+            return filterProduct
+        }
+    }
+
+    const productsSearch: Product[] = searchProduct(products)
+    const productsFilter: Product[] = filterProduct(productsSearch)
+
+    const productsCount = productsFilter.length;
+    const productsFinish = paginate(productsFilter, currentPage, pageSize);
 
     if (isLoading || data === undefined) {
         return <Spinner />;
@@ -75,15 +131,22 @@ export default function ProductsList() {
     } else {
         return (
             <>
-                <div className="d-flex justify-content-between">
+                <div className="d-flex justify-content-between gap ">
                     <Filter
                         filter={filter}
                         disabled={filterButtonDisabled}
                         handleToggleFilter={handleToggleFilter}
                     />
-                    <div className="mb-3">
+                    <input
+                        className=" form-control"
+                        placeholder="Search..."
+                        type="text"
+                        value={searchData}
+                        onChange={handleSearch}
+                    />
+                    <div className="mb-3 ">
                         <button
-                            className={`btn btn-primary`}
+                            className="btn btn-primary d-flex justify-content-between"
                             onClick={toCreateProduct}
                         >
                             <i className="bi bi-plus-lg me-2"></i>Добавить
@@ -92,10 +155,20 @@ export default function ProductsList() {
                 </div>
 
                 <div className="row row-cols-2 g-2 mb-5">
-                    {products.map((item: Product) => (
+                    {productsFinish.map((item: Product) => (
                         <ProductCard key={item.id} product={item} />
                     ))}
                 </div>
+                {pageSize < productsCount && (
+                    <Pagination
+                        onSelectPage={handleCurrentPage}
+                        onNextPage={handleNextPage}
+                        onPreviousPage={handlePreviousPage}
+                        currentPage={currentPage}
+                        itemsCount={productsCount}
+                        pageSize={pageSize}
+                    />
+                )}
             </>
         );
     }

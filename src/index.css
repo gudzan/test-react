@@ -69,6 +69,12 @@ input[type="number"]::-webkit-outer-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+input{
+  max-height: 37.6px;
+}
 textarea{
   max-height: 150px;
+}
+.gap {
+  gap: 15px;
 }

@@ -18,7 +18,7 @@ export default function Filter({
         <div className="mb-3">
             <button
                 disabled={disabled}
-                className={`btn${buttonColor}`}
+                className={`d-flex justify-content-between btn${buttonColor}`}
                 onClick={() => handleToggleFilter()}
             >
                 <i className={`bi me-2${buttonLiked}`}></i>Избранное
